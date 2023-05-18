@@ -47,7 +47,7 @@ body.classList.add("bg-light", "bg-opacity-75");
 
 // Create nav element
 const navbar = createElement("nav");
-const navbarClass = ["navbar", "navbar-expand-lg", "bg-dark", "position-sticky", "top-0", "z-1"];
+const navbarClass = ["navbar", "navbar-expand-lg", "navbar-dark", "bg-dark", "shadow", "position-sticky", "top-0", "z-1"];
 navbar.classList.add(...navbarClass);
 appendChild(body, navbar);
 
@@ -109,7 +109,7 @@ appendChild(navbarContainer, navbarCollapse);
 
 // Create ul element
 const navListItems = createElement("ul");
-const navListItemsClass = ["navbar-nav", "me-auto", "mb-2", "mb-lg-0"];
+const navListItemsClass = ["navbar-nav", "me-auto", "mb-2", "mb-lg-0", "flex-md-row", "justify-content-md-around", "flex-sm-row", "justify-content-sm-around", "flex-row", "justify-content-around"];
 navListItems.classList.add(...navListItemsClass);
 appendChild(navbarCollapse, navListItems);
 
@@ -126,7 +126,7 @@ appendChild(navbarCollapse, navForm);
 
 // Create input element
 const formInput = createElement("input");
-const formInputClass = ["form-control", "me-2", "mb-lg-0", "mb-md-2", "mb-sm-2"];
+const formInputClass = ["form-control", "me-2", "mb-lg-0", "mb-md-2", "mb-sm-2", "mb-2"];
 formInput.classList.add(...formInputClass);
 formInput.setAttribute("type", "search");
 formInput.placeholder = "Search user";
@@ -152,7 +152,7 @@ appendChild(navbarCollapse, searchUserRepo);
 
 // create a main element
 const main = createElement("main");
-const mailClass = ["container", "gx-0", "p-2", "mt-2"];
+const mailClass = ["container-fluid", "gx-0", "p-2", "mt-2"];
 main.classList.add(...mailClass);
 main.setAttribute("id", "header");
 appendChild(body, main);
@@ -160,14 +160,14 @@ appendChild(body, main);
 /* */
 // create Toast popup
 const toastMsgContainer = createElement("div");
-const toastMsgContainerClass = ["position-absolute", "top-0", "z-2", "end-0", "mt-5", "me-2", "toast", "fade"];
+const toastMsgContainerClass = ["bg-dark-subtle", "position-absolute", "top-0", "z-2", "end-0", "mt-5", "me-2", "toast", "fade"];
 toastMsgContainer.classList.add(...toastMsgContainerClass);
 toastMsgContainer.role = "alert";
 appendChild(body, toastMsgContainer);
 
 // Create a Toast Header
 const toastHeader = createElement("div");
-const toastHeaderClass = ["toast-header"];
+const toastHeaderClass = ["toast-header", "bg-primary"];
 toastHeader.classList.add(...toastHeaderClass);
 appendChild(toastMsgContainer, toastHeader);
 
@@ -222,12 +222,12 @@ appendChild(toastMsgContainer, toastBody);
 
 // Create Hero Section
 const heroSection = createElement("section");
-const heroSectionClass = ["container", "bg-dark", "p-2", "rounded-1", "shadow", "text-center"];
+const heroSectionClass = ["container-fluid", "bg-dark", "p-2", "rounded-1", "shadow", "text-center", "fade", "show"];
 heroSection.classList.add(...heroSectionClass);
 
 // Create Hero Text element
 const heroText = createElement("h1");
-const heroTextClass = ["text-center", "text-light", "display-3"];
+const heroTextClass = ["text-center", "text-light", "display-6"];
 heroText.classList.add(...heroTextClass);
 heroText.innerHTML = "Search GitHub User";
 
@@ -242,7 +242,7 @@ appendChild(heroSection, heroIcon);
 
 // create a section element
 const section = createElement("section");
-const sectionClass = ["row", "gx-0", "mt-2", "gap-3", "flex-wrap", "justify-content-center"];
+const sectionClass = ["row", "gx-0", "mt-2", "gap-lg-3", "gap-md-3", "gap-sm-3", "gap-2", "flex-md-wrap", "flex-sm-wrap", "flex-wrap", "justify-content-lg-center", "justify-content-md-center", "justify-content-sm-center", "justify-content-center"];
 section.classList.add(...sectionClass);
 appendChild(main, section);
 
@@ -296,13 +296,13 @@ const getUser = async () => {
     bottomBtn.classList.remove("show");
 
     section.innerHTML += `
-      <div class="col col-lg-5 d-md-flex justify-content-md-center">
+      <div class="col-lg-6 d-md-flex d-sm-flex justify-content-md-center justify-content-sm-center">
         <div class="card p-2" style="max-width: 540px;">
           <div class="row g-0 align-items-stretch">
             <div class="col-md-4 d-sm-flex justify-content-sm-center">
               <img src=${userData.avatar_url} class="img-fluid rounded " alt="...">
             </div>
-          <div class="col-md-8">
+          <div class="col-md-8 mt-md-2 mt-sm-2 mt-2">
               <div class="card-body p-0 ps-2">
                 <h5 class="card-title">Name: ${userData.name}</h5>
                 <p class="card-text mb-0">Login Name: ${userData.login}</p>
@@ -316,7 +316,8 @@ const getUser = async () => {
         </div>
       </div>
     `;
-
+    navBtn.classList.toggle("collapsed");
+    navbarCollapse.classList.toggle("show");
     toastMsgContainer.classList.remove('show');
 
     // Input field value clear
@@ -355,13 +356,13 @@ const getRepo = async () => {
       // if (description === null || language === null) return;
       const date = new Date(created_at).toLocaleString();
       section.innerHTML += `
-      <div class="col col-lg-5 col-md-8 col-sm-12">
-        <div class="card text-bg-light mb-2 " style="max-width: 540px;">
-          <div class="card-header">
+      <div class="col-lg-5 col-md-5 col-sm-12">
+        <div class="card text-bg-light mb-2 shadow" style="max-width: 540px;">
+          <div class="card-header bg-secondary fw-semibold">
             <span class="fw-semibold">${ind + 1}.</span> 
             Repo ID: ${id}
           </div>
-            <div class="card-body">
+            <div class="card-body bg-dark-subtle">
               <h5 class="card-title">Name: ${name.slice(0, 30)}...</h5>
               <p class="card-text">Desc: ${description ? description.slice(0, 40) : ""}...</p>
               <p class="card-text">Visibility: ${visibility}</p>
@@ -371,7 +372,8 @@ const getRepo = async () => {
         </div>
       </div>
       `;
-
+      navBtn.classList.add("collapsed");
+      navbarCollapse.classList.remove("show");
       bottomBtn.classList.add("show");
 
       // Input field value clear
