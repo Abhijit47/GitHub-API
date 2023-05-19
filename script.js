@@ -334,7 +334,7 @@ const getUser = async () => {
 
 const getRepo = async () => {
 
-  const apiUrl = `https://api.github.com/users/${userInput}/repos`;
+  const apiUrl = `https://api.github.com/users/${userInput ? userInput : formInput.value}/repos`;
 
   // Initial Point
   section.innerHTML = "";
@@ -372,9 +372,14 @@ const getRepo = async () => {
         </div>
       </div>
       `;
+
+      // Hide some features
       navBtn.classList.add("collapsed");
       navbarCollapse.classList.remove("show");
       bottomBtn.classList.add("show");
+
+      // Hide Toast Message
+      toastMsgContainer.classList.remove('show');
 
       // Input field value clear
       userInput = "";
@@ -384,7 +389,7 @@ const getRepo = async () => {
   } catch (error) {
     // console.log(error.message);
     toastMsgContainer.classList.toggle('show');
-    toastHeading.innerHTML = new Error("Limit Reached");
+    toastHeading.innerHTML = new Error("Please Provide username");
     toastBody.innerHTML = "Something went wrong!🛑";
   }
 };
